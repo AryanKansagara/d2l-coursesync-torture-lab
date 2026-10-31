@@ -1,0 +1,580 @@
+{
+  "provenance": "real_loopback_HTTP_and_file_checkpoint_synthetic_courses_and_mutations",
+  "throttle_clock": "deterministic_simulated_ms_not_real_wait_or_performance_measurement",
+  "compatibility": "not_a_Brightspace_adapter_or_vendor_snapshot_guarantee",
+  "experiments": [
+    {
+      "scenario": "stable",
+      "policies": [
+        {
+          "policy": "naive",
+          "crash_recovered": false,
+          "status": "complete",
+          "reason": "naive_end_of_pages_assumption",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": null,
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": true,
+            "final_oracle_match": true,
+            "http_calls": 3,
+            "successful_pages": 3,
+            "throttle_violations": 0
+          },
+          "mutation_log": []
+        },
+        {
+          "policy": "checkpoint-reconcile",
+          "crash_recovered": true,
+          "status": "complete",
+          "reason": "two_matching_full_passes_with_fixture_revision_contract",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": [
+            {
+              "pass": 1,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 1,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 2,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 1,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            }
+          ],
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": true,
+            "http_calls": 7,
+            "successful_pages": 6,
+            "throttle_violations": 0
+          },
+          "mutation_log": []
+        }
+      ]
+    },
+    {
+      "scenario": "shift",
+      "policies": [
+        {
+          "policy": "naive",
+          "crash_recovered": false,
+          "status": "complete",
+          "reason": "naive_end_of_pages_assumption",
+          "record_ids": [
+            "A",
+            "B",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "passes": null,
+          "evaluation": {
+            "missing_ids": [
+              "C"
+            ],
+            "stale_ids": [
+              "A"
+            ],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": true,
+            "uncertified_complete_claim": true,
+            "final_oracle_match": false,
+            "http_calls": 3,
+            "successful_pages": 3,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "deleted": "A",
+              "inserted": "G",
+              "revision": 2
+            }
+          ]
+        },
+        {
+          "policy": "checkpoint-reconcile",
+          "crash_recovered": true,
+          "status": "complete",
+          "reason": "two_matching_full_passes_with_fixture_revision_contract",
+          "record_ids": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "passes": [
+            {
+              "pass": 1,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 1,
+              "digest": "ce21e374c00c6d4c53982395fe62489c08abd44af8684a7f6ef81d3f3814a8e1",
+              "records": 6
+            },
+            {
+              "pass": 2,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 2,
+              "digest": "630a40ce2b474ecfd30d9f3c8e2485824dd1931dd9337de6a84be88f6f315f2b",
+              "records": 6
+            },
+            {
+              "pass": 3,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 2,
+              "digest": "630a40ce2b474ecfd30d9f3c8e2485824dd1931dd9337de6a84be88f6f315f2b",
+              "records": 6
+            }
+          ],
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": true,
+            "http_calls": 11,
+            "successful_pages": 9,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "deleted": "A",
+              "inserted": "G",
+              "revision": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "deleted-cursor",
+      "policies": [
+        {
+          "policy": "naive",
+          "crash_recovered": false,
+          "status": "incomplete",
+          "reason": "expired_cursor",
+          "record_ids": [
+            "A",
+            "B"
+          ],
+          "passes": null,
+          "evaluation": {
+            "missing_ids": [
+              "C",
+              "D",
+              "E",
+              "F",
+              "G"
+            ],
+            "stale_ids": [
+              "B"
+            ],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": false,
+            "http_calls": 2,
+            "successful_pages": 1,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "deleted": "B",
+              "inserted": "G",
+              "revision": 2
+            }
+          ]
+        },
+        {
+          "policy": "checkpoint-reconcile",
+          "crash_recovered": true,
+          "status": "complete",
+          "reason": "two_matching_full_passes_with_fixture_revision_contract",
+          "record_ids": [
+            "A",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "passes": [
+            {
+              "pass": 1,
+              "complete": false,
+              "reason": "expired_cursor"
+            },
+            {
+              "pass": 2,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 2,
+              "digest": "d38dc4cb3e8790f30014f20761281d242b3eaaef60fdd5f9f4341dc08df5d79e",
+              "records": 6
+            },
+            {
+              "pass": 3,
+              "complete": true,
+              "stable_revision": true,
+              "revision": 2,
+              "digest": "d38dc4cb3e8790f30014f20761281d242b3eaaef60fdd5f9f4341dc08df5d79e",
+              "records": 6
+            }
+          ],
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": true,
+            "http_calls": 10,
+            "successful_pages": 7,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "deleted": "B",
+              "inserted": "G",
+              "revision": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "churn",
+      "policies": [
+        {
+          "policy": "naive",
+          "crash_recovered": false,
+          "status": "complete",
+          "reason": "naive_end_of_pages_assumption",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": null,
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [
+              "A"
+            ],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": true,
+            "uncertified_complete_claim": true,
+            "final_oracle_match": false,
+            "http_calls": 3,
+            "successful_pages": 3,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "updated": "A",
+              "revision": 2
+            },
+            {
+              "after_page": 2,
+              "updated": "A",
+              "revision": 3
+            },
+            {
+              "after_page": 3,
+              "updated": "A",
+              "revision": 4
+            }
+          ]
+        },
+        {
+          "policy": "checkpoint-reconcile",
+          "crash_recovered": true,
+          "status": "incomplete",
+          "reason": "unstable_or_no_snapshot_contract",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": [
+            {
+              "pass": 1,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 1,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 2,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 4,
+              "digest": "b14e36153dab8c9c7eec2f5835e2e74f986d46db36fee04c6e05664662a0a9f0",
+              "records": 6
+            },
+            {
+              "pass": 3,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 7,
+              "digest": "cb616379dea6cb38c2a6331743f9803dae5b787f82c4965fee962c054162b7b9",
+              "records": 6
+            },
+            {
+              "pass": 4,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 10,
+              "digest": "0a6a795adaeba387fb20fab4c5c7f09cc9b6a064ed47eb2bc71664c3f6f063ab",
+              "records": 6
+            },
+            {
+              "pass": 5,
+              "complete": true,
+              "stable_revision": false,
+              "revision": 13,
+              "digest": "33e9e085d211635c237011a5ba133324bea6b81049f676b288681bbf80f2a807",
+              "records": 6
+            }
+          ],
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [
+              "A"
+            ],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": false,
+            "http_calls": 19,
+            "successful_pages": 15,
+            "throttle_violations": 0
+          },
+          "mutation_log": [
+            {
+              "after_page": 1,
+              "updated": "A",
+              "revision": 2
+            },
+            {
+              "after_page": 2,
+              "updated": "A",
+              "revision": 3
+            },
+            {
+              "after_page": 3,
+              "updated": "A",
+              "revision": 4
+            },
+            {
+              "after_page": 4,
+              "updated": "A",
+              "revision": 5
+            },
+            {
+              "after_page": 5,
+              "updated": "A",
+              "revision": 6
+            },
+            {
+              "after_page": 6,
+              "updated": "A",
+              "revision": 7
+            },
+            {
+              "after_page": 7,
+              "updated": "A",
+              "revision": 8
+            },
+            {
+              "after_page": 8,
+              "updated": "A",
+              "revision": 9
+            },
+            {
+              "after_page": 9,
+              "updated": "A",
+              "revision": 10
+            },
+            {
+              "after_page": 10,
+              "updated": "A",
+              "revision": 11
+            },
+            {
+              "after_page": 11,
+              "updated": "A",
+              "revision": 12
+            },
+            {
+              "after_page": 12,
+              "updated": "A",
+              "revision": 13
+            },
+            {
+              "after_page": 13,
+              "updated": "A",
+              "revision": 14
+            },
+            {
+              "after_page": 14,
+              "updated": "A",
+              "revision": 15
+            },
+            {
+              "after_page": 15,
+              "updated": "A",
+              "revision": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "no-contract",
+      "policies": [
+        {
+          "policy": "naive",
+          "crash_recovered": false,
+          "status": "complete",
+          "reason": "naive_end_of_pages_assumption",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": null,
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": true,
+            "final_oracle_match": true,
+            "http_calls": 3,
+            "successful_pages": 3,
+            "throttle_violations": 0
+          },
+          "mutation_log": []
+        },
+        {
+          "policy": "checkpoint-reconcile",
+          "crash_recovered": true,
+          "status": "incomplete",
+          "reason": "unstable_or_no_snapshot_contract",
+          "record_ids": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "passes": [
+            {
+              "pass": 1,
+              "complete": true,
+              "stable_revision": false,
+              "revision": null,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 2,
+              "complete": true,
+              "stable_revision": false,
+              "revision": null,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 3,
+              "complete": true,
+              "stable_revision": false,
+              "revision": null,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 4,
+              "complete": true,
+              "stable_revision": false,
+              "revision": null,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            },
+            {
+              "pass": 5,
+              "complete": true,
+              "stable_revision": false,
+              "revision": null,
+              "digest": "a00066f8d61317636d8c9ae8ae05ca4cbba0beedf8eed8dde600295ff0149baa",
+              "records": 6
+            }
+          ],
+          "evaluation": {
+            "missing_ids": [],
+            "stale_ids": [],
+            "duplicate_rows": 0,
+            "incorrect_complete_claim": false,
+            "uncertified_complete_claim": false,
+            "final_oracle_match": true,
+            "http_calls": 19,
+            "successful_pages": 15,
+            "throttle_violations": 0
+          },
+          "mutation_log": []
+        }
+      ]
+    }
+  ]
+}

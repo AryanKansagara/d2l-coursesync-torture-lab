@@ -1,0 +1,1 @@
+{"company":"D2L","title":"CourseSync Torture Lab","test_command":"npm test","demo_command":"npm run demo","scope":"Real local HTTP mutable opaque pagination, synthetic rate limits, atomic JSON checkpoints and stable-revision reconciliation; no Brightspace adapter","implemented":true,"integration_status":"unverified"}
